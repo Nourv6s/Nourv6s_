@@ -183,23 +183,27 @@
   Browser kamu tidak mendukung audio.
 </audio>
 
-<button id="mute-btn">🔇 Unmute</button>
+<button id="music-btn">🔇 Unmute & ▶️ Play</button>
 
 <script>
   const music = document.getElementById("bg-music");
-  const btn = document.getElementById("mute-btn");
+  const btn = document.getElementById("music-btn");
 
   btn.addEventListener("click", () => {
-    if (music.muted) {
-      music.muted = false;
-      music.play(); // <-- pastikan diputar setelah unmute
-      btn.textContent = "🔊 Mute";
+    // toggle mute
+    music.muted = !music.muted;
+
+    // toggle play/pause
+    if (music.paused) {
+      music.play().catch(err => console.log("Audio play error:", err));
+      btn.textContent = music.muted ? "🔇 Unmute & ▶️ Play" : "🔊 Mute & ⏸️ Pause";
     } else {
-      music.muted = true;
-      btn.textContent = "🔇 Unmute";
+      music.pause();
+      btn.textContent = music.muted ? "🔇 Unmute & ▶️ Play" : "🔊 Mute & ▶️ Play";
     }
   });
 </script>
+
 
 
     
