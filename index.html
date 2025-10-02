@@ -190,8 +190,21 @@
   const btn = document.getElementById("play-pause-btn");
 
   btn.addEventListener("click", () => {
+    music.play().then(() => {
+      // Jika berhasil play, toggle pause/play
+      if (!music.paused) {
+        btn.textContent = "⏸️ Pause";
+      } else {
+        btn.textContent = "▶️ Play";
+      }
+    }).catch(err => {
+      console.log("Audio play error:", err);
+      alert("Klik tombol ini untuk mulai audio."); // fallback alert
+    });
+
+    // Toggle pause/play
     if (music.paused) {
-      music.play().catch(err => console.log("Audio play error:", err));
+      music.play();
       btn.textContent = "⏸️ Pause";
     } else {
       music.pause();
@@ -199,6 +212,7 @@
     }
   });
 </script>
+
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
