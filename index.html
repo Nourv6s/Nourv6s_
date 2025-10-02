@@ -183,33 +183,53 @@
   Browser kamu tidak mendukung audio.
 </audio>
 
-<button id="play-pause-btn">▶️ Play</button>
+<div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
+  <button id="back-btn">⏮️ Back</button>
+  <button id="play-pause-btn">▶️ Play</button>
+  <button id="next-btn">⏭️ Next</button>
+</div>
 
 <script>
   const music = document.getElementById("bg-music");
-  const btn = document.getElementById("play-pause-btn");
+  const playBtn = document.getElementById("play-pause-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const backBtn = document.getElementById("back-btn");
 
-  btn.addEventListener("click", () => {
-    music.play().then(() => {
-      // Jika berhasil play, toggle pause/play
-      if (!music.paused) {
-        btn.textContent = "⏸️ Pause";
-      } else {
-        btn.textContent = "▶️ Play";
-      }
-    }).catch(err => {
-      console.log("Audio play error:", err);
-      alert("Klik tombol ini untuk mulai audio."); // fallback alert
-    });
+  const playlist = [
+    "https://raw.githubusercontent.com/Nourv6s/Nourv6s_/main/The%20Weeknd%20-%20Closing%20Night.mp3",
+    "https://raw.githubusercontent.com/Nourv6s/Nourv6s_/main/The%20Weeknd%20-%20Niagara%20Falls%20(Audio).mp3"
+  ];
 
-    // Toggle pause/play
+  let current = 0;
+
+  // mulai lagu pertama
+  music.src = playlist[current];
+
+  function updatePlayPauseBtn() {
+    playBtn.textContent = music.paused ? "▶️ Play" : "⏸️ Pause";
+  }
+
+  playBtn.addEventListener("click", () => {
     if (music.paused) {
-      music.play();
-      btn.textContent = "⏸️ Pause";
+      music.play().catch(err => console.log("Audio play error:", err));
     } else {
       music.pause();
-      btn.textContent = "▶️ Play";
     }
+    updatePlayPauseBtn();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    current = (current + 1) % playlist.length;
+    music.src = playlist[current];
+    music.play().catch(err => console.log("Audio play error:", err));
+    updatePlayPauseBtn();
+  });
+
+  backBtn.addEventListener("click", () => {
+    current = (current - 1 + playlist.length) % playlist.length;
+    music.src = playlist[current];
+    music.play().catch(err => console.log("Audio play error:", err));
+    updatePlayPauseBtn();
   });
 </script>
 
