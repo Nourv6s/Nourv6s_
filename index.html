@@ -41,14 +41,14 @@
         }
         .profile-info {
             text-align: center;
-            padding: 25px 20px 15px; /* Diubah: padding-top dari 0 ke 25px */
+            padding: 25px 20px 15px;
         }
         .avatar-container {
             display: inline-block;
             border-radius: 50%;
             padding: 3px;
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            margin-bottom: 15px; /* Diubah: dari 12px ke 15px */
+            margin-bottom: 15px;
         }
         .avatar {
             width: 90px;
@@ -128,6 +128,22 @@
             line-height: 1.5;
             border-top: 1px solid #eee;
         }
+        /* Tombol musik */
+        .music-btn {
+            margin-top: 20px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #1DB954;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .music-btn:hover {
+            background: #159c42;
+        }
     </style>
 </head>
 <body>
@@ -161,6 +177,18 @@
             <p class="lyric">Nourv6s.</p>
         </div>
     </div>
+
+    <!-- Musik Background -->
+    <audio id="bg-music" autoplay loop muted>
+        <source src="The Weeknd - Closing Night.mp3" type="audio/mpeg">
+        Browser kamu tidak support audio.
+    </audio>
+
+    <!-- Tombol Unmute -->
+    <button class="music-btn" onclick="document.getElementById('bg-music').muted = false;">
+        🔊 Unmute Music
+    </button>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const elements = document.querySelectorAll('.profile-info, .links-section, .spotify-section');
@@ -176,4 +204,4 @@
         });
     </script>
 </body>
-      </html>
+</html>
