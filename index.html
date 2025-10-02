@@ -183,9 +183,23 @@
   Browser kamu tidak mendukung audio.
 </audio>
 
-<button onclick="document.getElementById('bg-music').muted = false;">
-  🔊 Play Music
-</button>
+<button id="mute-btn">🔇 Unmute</button>
+
+<script>
+  const music = document.getElementById("bg-music");
+  const btn = document.getElementById("mute-btn");
+
+  btn.addEventListener("click", () => {
+    if (music.muted) {
+      music.muted = false;
+      btn.textContent = "🔊 Mute";
+    } else {
+      music.muted = true;
+      btn.textContent = "🔇 Unmute";
+    }
+  });
+</script>
+
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
