@@ -190,10 +190,14 @@
   const btn = document.getElementById("mute-btn");
 
   btn.addEventListener("click", () => {
+    // kalau lagi mute → unmute
     if (music.muted) {
       music.muted = false;
+      music.play();
       btn.textContent = "🔊 Mute";
-    } else {
+    } 
+    // kalau lagi nyala → mute
+    else {
       music.muted = true;
       btn.textContent = "🔇 Unmute";
     }
