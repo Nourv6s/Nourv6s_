@@ -1,145 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nourv6s</title>
-
-<!-- Minecraft Pixel Font -->
-<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
-
-<style>
-    body {
-        font-family: 'Minecraft', sans-serif;
-    }
-
-    /* Now Playing */
-    #now-playing {
-        text-align: center;
-        margin-top: 20px;
-        font-size: 18px;
-        color: #222;
-    }
-
-    /* Pixel Buttons */
-    .pixel-btn {
-        font-family: 'Minecraft', sans-serif;
-        padding: 12px 20px;
-        border: 3px solid #000;
-        background: #f7b733;
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 14px;
-        transition: 0.12s;
-    }
-
-    .pixel-btn:hover {
-        background: #ffcf54;
-    }
-
-    .pixel-btn:active {
-        transform: scale(0.92);
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>heydaniel.</title>
+    <meta name="description" content="how did we get through this place?">
+    <meta name="keywords" content="how long will this go on?">
+    <meta property="og:title" content="heydaniel" />
+    <meta property="og:description" content="how did we get through this place" />
+    <meta property="og:url" content="https://nourv6s.vercel.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://github.com/Nourv6s.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #ffffff;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        .profile-card {
+            width: 100%;
+            max-width: 350px;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .profile-info {
+            text-align: center;
+            padding: 25px 20px 15px; /* Diubah: padding-top dari 0 ke 25px */
+        }
+        .avatar-container {
+            display: inline-block;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            margin-bottom: 15px; /* Diubah: dari 12px ke 15px */
+        }
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffffff;
+            display: block;
+        }
+        .profile-name {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-right: 6px;
+            color: #333;
+        }
+        .verified-badge {
+            color: #0095f6;
+            font-size: 1rem;
+        }
+        .profile-bio {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .links-section {
+            padding: 0 20px 12px;
+        }
+        .link-item {
+            display: block;
+            background: #f5f5f5;
+            color: #333;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+        .link-item:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+            border-color: #1DB954;
+        }
+        .link-icon {
+            margin-right: 6px;
+            width: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .spotify-section {
+            padding: 0 20px 20px;
+        }
+        .spotify-embed {
+            width: 100%;
+            height: 180px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            margin-bottom: 15px;
+        }
+        .lyric {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            padding: 15px 12px 0;
+            line-height: 1.5;
+            border-top: 1px solid #eee;
+        }
+    </style>
 </head>
 <body>
-
-<!-- Your normal content here: profile, links, spotify embed, dll -->
-
-<!-- NOW PLAYING -->
-<div id="now-playing">Now Playing: -</div>
-
-<!-- BUTTONS -->
-<div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
-  <button id="back-btn" class="pixel-btn">⏮️ Back</button>
-  <button id="play-pause-btn" class="pixel-btn">▶️ Play</button>
-  <button id="next-btn" class="pixel-btn">⏭️ Next</button>
-</div>
-
-<!-- AUDIO -->
-<audio id="bg-music"></audio>
-
-<script>
-const music = document.getElementById("bg-music");
-const playBtn = document.getElementById("play-pause-btn");
-const nextBtn = document.getElementById("next-btn");
-const backBtn = document.getElementById("back-btn");
-const nowPlaying = document.getElementById("now-playing");
-
-// Playlist
-const playlist = [
-  "https://raw.githubusercontent.com/Nourv6s/Nourv6s_/main/The%20Weeknd%20-%20Closing%20Night.mp3",
-  "https://raw.githubusercontent.com/Nourv6s/Nourv6s_/main/The%20Weeknd%20-%20Niagara%20Falls%20(Audio).mp3"
-];
-
-// Titles
-const titles = [
-  "Closing Night – The Weeknd",
-  "Niagara Falls – The Weeknd"
-];
-
-let current = 0;
-
-// Load first track
-music.src = playlist[current];
-
-// Update text Now Playing
-function updateNowPlaying() {
-    nowPlaying.textContent = "Now Playing: " + titles[current];
-}
-
-// Update button Play/Pause
-function updatePlayPauseBtn() {
-    playBtn.textContent = music.paused ? "▶️ Play" : "⏸️ Pause";
-}
-
-updateNowPlaying();
-
-// PLAY / PAUSE
-playBtn.addEventListener("click", () => {
-    if (music.paused) {
-        music.play().catch(err => console.log("Audio play error:", err));
-    } else {
-        music.pause();
-    }
-    updatePlayPauseBtn();
-});
-
-// NEXT
-nextBtn.addEventListener("click", () => {
-    current = (current + 1) % playlist.length;
-    music.src = playlist[current];
-    music.play().catch(err => console.log("Audio play error:", err));
-    updatePlayPauseBtn();
-    updateNowPlaying();
-});
-
-// BACK
-backBtn.addEventListener("click", () => {
-    current = (current - 1 + playlist.length) % playlist.length;
-    music.src = playlist[current];
-    music.play().catch(err => console.log("Audio play error:", err));
-    updatePlayPauseBtn();
-    updateNowPlaying();
-});
-</script>
-
-<!-- ANIMASI MASUK (PUNYA KAMU TADI, GA DIUBAH) -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const elements = document.querySelectorAll('.profile-info, .links-section, .spotify-section');
-    elements.forEach((element, index) => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(15px)';
-        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        setTimeout(() => {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-        }, 150 + (index * 150));
-    });
-});
-</script>
-
+    <div class="profile-card">
+        <div class="profile-info">
+            <div class="avatar-container">
+                <img src="https://github.com/Nourv6s.png" alt="Profile" class="avatar">
+            </div>
+            <div class="profile-name">
+                <h1 class="name">Nourv6s</h1>
+                <span class="verified-badge">
+                    <i class="fas fa-check-circle"></i>
+                </span>
+            </div>
+            <p class="profile-bio">how did we get through this place?</p>
+        </div>
+        <div class="links-section">
+            <a href="https://t.me/jasavirtext" class="link-item">
+                <i class="fab fa-telegram link-icon"></i> Telegram
+            </a>
+            <a href="https://instagram.com/nourv6s_" class="link-item">
+                <i class="fab fa-instagram link-icon"></i> Instagram
+            </a>
+            <a href="https://youtube.com/@theweeknd" class="link-item">
+                <i class="fab fa-youtube link-icon"></i> Youtube
+            </a>
+        </div>
+        <div class="spotify-section">
+            <iframe class="spotify-embed" src="https://open.spotify.com/embed/playlist/0X1Z9kTsEtkF86IuHjYKFR?si=aiOOsdKOThygYnb6yURLmQ" frameborder="0" allowtransparency="true" allow="encrypted-media" style="background: transparent;">
+            </iframe>
+            <p class="lyric">Nourv6s.</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.profile-info, .links-section, .spotify-section');
+            elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(15px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 150 + (index * 150));
+            });
+        });
+    </script>
 </body>
-</html>
-
+      </html>
